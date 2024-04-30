@@ -1,0 +1,80 @@
+{% extends 'Admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+     <style>
+    /* Add custom CSS for curved table */
+    .rounded-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 2px solid #dddddd; /* Add a contrasting border color */
+        border-radius: 20px; /* Adjust the radius as needed */
+        overflow: hidden;
+        margin-bottom: 20px; /* Add margin at the bottom */
+    }
+
+    .rounded-table th,
+    .rounded-table td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #dddddd;
+    }
+
+
+</style>
+
+</head>
+
+<body>
+<h3 style="font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif">Update Product</h3><br>
+
+<form action="/edit_product_post/{{ data.id }}" method="post" enctype="multipart/form-data" name="form1" id="form1">
+{% csrf_token %}
+  <table width="200" border="1" class="table table-bordered rounded-table">
+    <tr>
+      <th scope="row">Category</th>
+      <td>
+        <select name="select" id="select" class="form-control" required >
+            {% for i in data1 %}
+                <option value="{{ i.id }}" {% if i.id == data.CATEGORY_id %} selected {% endif %}>{{ i.category_name }}</option>
+            {% endfor %}
+
+      </select></td>
+    </tr>
+    <tr>
+      <th scope="row">Name</th>
+      <td>
+      <input type="text" name="textfield" id="textfield" value="{{ data.name }}" class="form-control" required  /></td>
+    </tr>
+    <tr>
+      <th scope="row">Image</th>
+      <td>
+      <input type="file" name="fileField" id="fileField" class="form-control" />
+       <img src="{{ data.image }}" width="100px" height="100px">
+      </td>
+
+    </tr>
+    <tr>
+      <th scope="row">Price</th>
+      <td>
+      <input type="text" name="textfield2" id="textfield2" value="{{ data.price }}" class="form-control" required /></td>
+    </tr>
+    <tr>
+      <th scope="row">Date</th>
+      <td>
+      <input type="date" name="textfield3" id="textfield3" value="{{ data.product_date }}" class="form-control" required  /></td>
+    </tr>
+    <tr>
+        <th colspan="2" scope="row"><div align="center"> <input type="submit" name="button" id="button" value="Edit" class="btn btn-outline-primary" /></div></th>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+
+{% endblock %}
